@@ -27,11 +27,14 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
                     break;
 
                 case PLAYING:
-
+                        this.game.getPlaying().mouseClicked(e.getX(), e.getY());
                     break;
 
                 case SETTINGS:
-
+                        this.game.getSettings().mouseClicked(e.getX(), e.getY());
+                    break;
+                case EDIT:
+                    this.game.getEditing().mouseClicked(e.getX(), e.getY());
                     break;
                 default:
                     break;
@@ -48,11 +51,14 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
                 break;
 
             case PLAYING:
-
+                this.game.getPlaying().mousePressed(e.getX(), e.getY());
                 break;
 
             case SETTINGS:
-
+                this.game.getSettings().mousePressed(e.getX(), e.getY());
+                break;
+            case EDIT:
+                this.game.getEditing().mousePressed(e.getX(), e.getY());
                 break;
             default:
                 break;
@@ -68,11 +74,14 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
                 break;
 
             case PLAYING:
-
+                this.game.getPlaying().mouseReleased(e.getX(), e.getY());
                 break;
 
             case SETTINGS:
-
+                this.game.getSettings().mouseReleased(e.getX(), e.getY());
+                break;
+            case EDIT:
+                this.game.getEditing().mouseReleased(e.getX(), e.getY());
                 break;
             default:
                 break;
@@ -92,6 +101,24 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
 
+        switch(GameStates.gameState) {
+            case MENU:
+                this.game.getMenu().mouseDragged(e.getX(), e.getY());
+                break;
+
+            case PLAYING:
+                this.game.getPlaying().mouseDragged(e.getX(), e.getY());
+                break;
+
+            case SETTINGS:
+                this.game.getSettings().mouseDragged(e.getX(), e.getY());
+                break;
+            case EDIT:
+                this.game.getEditing().mouseDragged(e.getX(), e.getY());
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -109,10 +136,11 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
             case SETTINGS:
                 this.game.getSettings().mouseMoved(e.getX(), e.getY());
                 break;
+            case EDIT:
+                this.game.getEditing().mouseMoved(e.getX(), e.getY());
+                break;
             default:
                 break;
         }
     }
 }
-
-// 23.50

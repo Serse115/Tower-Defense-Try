@@ -32,8 +32,11 @@ public class Render {
             case SETTINGS:
                 this.game.getSettings().render(g);
                 break;
+            case EDIT:
+                this.game.getEditing().render(g);
+                break;
+            default:
+                break;
         }
     }
-
-
 }

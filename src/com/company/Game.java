@@ -1,5 +1,8 @@
 package com.company;
 
+import helpz.LoadSave;
+import managers.TileManager;
+import scenes.Editing;
 import scenes.Menu;
 import scenes.Playing;
 import scenes.Settings;
@@ -16,12 +19,12 @@ public class Game extends JFrame implements Runnable {
     private final double FPS_SET = 120.0;
     private final double UPS_SET = 60.0;
 
-
-
     private Render render;
     private Menu menu;
     private Playing playing;
     private Settings settings;
+    private Editing editing;
+    private TileManager tileManager;
 
 
 
@@ -32,6 +35,8 @@ public class Game extends JFrame implements Runnable {
         super.setResizable(false);
 
         this.initClasses();
+        this.createDefaultLevel();
+        this.tileManager = new TileManager();
 
         add(gameScreen);
 
@@ -49,6 +54,17 @@ public class Game extends JFrame implements Runnable {
 
     private void updateGame() {
         //
+    }
+
+    private void createDefaultLevel() {
+
+        int[]arr = new int[400];
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = 0;
+        }
+
+        LoadSave.CreateLevel("new_level", arr);
     }
 
     @Override
@@ -108,6 +124,14 @@ public class Game extends JFrame implements Runnable {
         return this.playing;
     }
 
+    public Editing getEditing() {
+        return this.editing;
+    }
+
+    public TileManager getTileManager() {
+        return this.tileManager;
+    }
+
     private void initClasses() {
 
         this.render = new Render(this);
@@ -116,5 +140,6 @@ public class Game extends JFrame implements Runnable {
         this.menu = new Menu(this);
         this.playing = new Playing(this);
         this.settings = new Settings(this);
+        this.editing = new Editing(this);
     }
 }

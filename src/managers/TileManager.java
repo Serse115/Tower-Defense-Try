@@ -26,9 +26,10 @@ public class TileManager {
     }
 
     private void createTiles() {
-        this.tiles.add(GRASS = new Tile(this.getSprite(9, 0)));
-        this.tiles.add(WATER = new Tile(this.getSprite(0, 0)));
-        this.tiles.add(ROAD = new Tile(this.getSprite(7, 0)));
+        int id = 0;
+        this.tiles.add(GRASS = new Tile(this.getSprite(9, 0), id++, "Grass"));
+        this.tiles.add(WATER = new Tile(this.getSprite(0, 0), id++, "Water"));
+        this.tiles.add(ROAD = new Tile(this.getSprite(7, 0), id++, "Road"));
     }
 
     private BufferedImage getSprite(int xCord, int yCord) {
@@ -37,5 +38,9 @@ public class TileManager {
 
     public BufferedImage getSprite(int id) {
         return this.tiles.get(id).getSprite();
+    }
+
+    public Tile getTile(int id) {
+        return this.tiles.get(id);
     }
 }

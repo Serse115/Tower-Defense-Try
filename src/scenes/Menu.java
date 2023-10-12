@@ -2,22 +2,16 @@ package scenes;
 
 import com.company.Game;
 import ui.MyButton;
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Random;
 import static com.company.GameStates.*;
 
 public class Menu extends GameScene implements SceneMethods {
 
     /**** Fields ****/
-    private BufferedImage img;
-    private ArrayList<BufferedImage> sprites = new ArrayList<>();
     private Random random;
     private MyButton bPlaying;
+    private MyButton bEdit;
     private MyButton bSettings;
     private MyButton bQuit;
 
@@ -26,8 +20,6 @@ public class Menu extends GameScene implements SceneMethods {
     public Menu(Game game) {
         super(game);
         this.random = new Random();
-        this.importImg();
-        this.loadSprites();
         this.initButtons();
     }
 
@@ -42,8 +34,9 @@ public class Menu extends GameScene implements SceneMethods {
         int yOffset = 100;
 
         this.bPlaying = new MyButton("Play", x, y, w, h);
-        this.bSettings = new MyButton("Settings", x, y + yOffset, w, h);
-        this.bQuit = new MyButton("Quit", x, y + yOffset * 2, w, h);
+        this.bEdit = new MyButton("Edit", x, y + yOffset, w, h);
+        this.bSettings = new MyButton("Settings", x, y + yOffset * 2, w, h);
+        this.bQuit = new MyButton("Quit", x, y + yOffset * 3, w, h);
     }
 
     @Override
@@ -62,11 +55,15 @@ public class Menu extends GameScene implements SceneMethods {
         else if (this.bQuit.getBounds().contains(x, y)) {
             System.exit(0);
         }
+        else if (this.bEdit.getBounds().contains(x, y)) {
+            SetGameState(EDIT);
+        }
     }
 
     @Override
     public void mouseMoved(int x, int y) {
         this.bPlaying.setMouseOver(false);
+        this.bEdit.setMouseOver(false);
         this.bSettings.setMouseOver(false);
         this.bQuit.setMouseOver(false);
 
@@ -78,6 +75,9 @@ public class Menu extends GameScene implements SceneMethods {
         }
         else if (this.bQuit.getBounds().contains(x, y)) {
             this.bQuit.setMouseOver(true);
+        }
+        else if (this.bEdit.getBounds().contains(x, y)) {
+            this.bEdit.setMouseOver(true);
         }
     }
 
@@ -93,6 +93,9 @@ public class Menu extends GameScene implements SceneMethods {
         else if (this.bQuit.getBounds().contains(x, y)) {
             this.bQuit.setMousePressed(true);
         }
+        else if (this.bEdit.getBounds().contains(x, y)) {
+            this.bEdit.setMousePressed(true);
+        }
     }
 
     @Override
@@ -100,36 +103,23 @@ public class Menu extends GameScene implements SceneMethods {
         this.resetButtons();
     }
 
+    @Override
+    public void mouseDragged(int x, int y) {
+
+    }
+
     private void resetButtons() {
         this.bPlaying.resetBooleans();
         this.bSettings.resetBooleans();
         this.bQuit.resetBooleans();
-    }
-
-    private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/aspriteatlas.png");
-
-        try {
-            this.img = ImageIO.read(is);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.bEdit.resetBooleans();
     }
 
     private void drawButtons(Graphics g) {
         this.bPlaying.draw(g);
+        this.bEdit.draw(g);
         this.bSettings.draw(g);
         this.bQuit.draw(g);
-    }
-
-    private void loadSprites() {
-
-        for (int j = 0; j < 3; j++) {
-            for (int i = 0; i < 10; i++) {
-                sprites.add(img.getSubimage(i * 32, j * 32, 32, 32));
-            }
-        }
     }
 
     private int getRandomInt() {

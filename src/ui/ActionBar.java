@@ -1,14 +1,11 @@
 package ui;
 
-import inputs.MyMouseListener;
-import scenes.SceneMethods;
-
+import scenes.Playing;
 import java.awt.*;
 import static com.company.GameStates.*;
 import static com.company.GameStates.SetGameState;
 
-
-public class BottomBar {
+public class ActionBar extends Bar {
 
     /**** Fields ****/
     private int x;
@@ -16,15 +13,13 @@ public class BottomBar {
     private int width;
     private int height;
     private MyButton bMenu;
+    private Playing playing;
 
 
     /**** Constructors ****/
-    public BottomBar(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-
+    public ActionBar(int x, int y, int width, int height, Playing playing) {
+        super(x, y, width, height);
+        this.playing = playing;
         this.initButtons();
     }
 
@@ -40,15 +35,12 @@ public class BottomBar {
         this.drawButtons(g);
     }
 
-
     public void mouseClicked(int x, int y) {
-        System.out.println("Coordinates: " + x + " " + y);
+
         if (this.bMenu.getBounds().contains(x, y)) {
-            System.out.println("Menu button clicked!");
             SetGameState(MENU);
         }
     }
-
 
     public void mouseMoved(int x, int y) {
         this.bMenu.setMouseOver(false);
@@ -60,16 +52,13 @@ public class BottomBar {
 
 
     public void mousePressed(int x, int y) {
-
         if (this.bMenu.getBounds().contains(x, y)) {
             this.bMenu.setMousePressed(true);
         }
     }
 
-
     public void mouseReleased(int x, int y) {
         this.bMenu.resetBooleans();
-
     }
 
     private void initButtons() {

@@ -5,10 +5,11 @@ import java.awt.*;
 public class MyButton {
 
     /**** Fields ****/
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+    public int x;
+    public int y;
+    public int width;
+    public int height;
+    public int id;
     private boolean mouseOver;
     private boolean mousePressed;
     private String text;
@@ -16,12 +17,26 @@ public class MyButton {
 
 
     /**** Constructors ****/
+    // Main constructor (Normal buttons)
     public MyButton(String text, int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.text = text;
+        this.id = -1;
+
+        this.initBounds();
+    }
+
+    // Tile buttons
+    public MyButton(String text, int x, int y, int width, int height, int id) {
+        this.x = x;
+        this.y = y;
+        this.height = height;
+        this.width = width;
+        this.text = text;
+        this.id = id;
 
         this.initBounds();
     }
@@ -100,7 +115,19 @@ public class MyButton {
         this.mouseOver = mouseOver;
     }
 
+    public boolean isMouseOver() {
+        return this.mouseOver;
+    }
+
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
+    }
+
+    public boolean isMousePressed() {
+        return this.mousePressed;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }
